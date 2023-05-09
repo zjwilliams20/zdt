@@ -1,0 +1,42 @@
+[project]
+name = "ztt"
+version = "0.0.0"
+description = "ZachTrajectoryTransformer: Zach trying to figure out how transformers work with dummy examples"
+authors = [
+    {name="Zach Williams", email="zjwilliams20@gmail.com"}
+]
+license = {file="LICENSE"}
+readme = "README.md"
+requires-python = ">=3.10"
+
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "sympy",
+    "cython",
+    "tqdm",
+    "torch",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ipympl",
+    "seaborn",
+    "jupyterlab",
+    "jupyterlab-git",
+    "jupyterlab-horizon-theme",
+    "networkx",
+    "ipdb",
+    "pip-tools",
+]
+
+[build-system]
+requires = ["setuptools", "setuptools-scm", "cython"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["ztt", "data"]
+
+[project.urls]
+homepage = "https://github.com/zjwilliams20/ztt"
