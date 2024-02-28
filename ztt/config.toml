@@ -1,0 +1,10 @@
+# ZTT Configuration file.
+[model]
+n_embed = 16
+n_layers = 1
+n_heads = 1
+dropout = 0.2
+
+[train]
+n_epochs = 100
+learning_rate = 1e-3

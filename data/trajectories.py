@@ -24,11 +24,11 @@ def random_trajectories(model, rollouts, horizon, scale):
     """Randomly generate trajectories for some dynamical model"""
 
     u_bounds = (-scale / 2, +scale / 2)
-    U = np.random.uniform(*u_bounds, (rollouts, horizon - 1, model.n_u))
+    U = np.random.uniform(*u_bounds, (rollouts, horizon, model.n_u))
     X = np.zeros((rollouts, horizon, model.n_x))
 
     for Xr, Ur in zip(X, U):
-        for t, u in enumerate(Ur):
+        for t, u in enumerate(Ur[:-1]):
             Xr[t + 1] = model(Xr[t], u)
 
     return X, U
@@ -50,7 +50,7 @@ def main():
         help="Number of rollouts for each model",
     )
     parser.add_argument(
-        "-N",
+        "-T",
         "--horizon",
         default=40,
         type=int,
@@ -73,7 +73,7 @@ def main():
     args = parser.parse_args()
     model = model_map[args.model](args.dt)
     outpath = Path(__file__).parent / strftime(
-        f"ztt-{args.model}_R{args.rollouts}_H{args.horizon}_dt{args.dt}.npz"
+        f"ztt-{args.model}_R{args.rollouts}_T{args.horizon}_dt{args.dt}.npz"
     )
 
     X, U = random_trajectories(model, args.rollouts, args.horizon, args.scale)

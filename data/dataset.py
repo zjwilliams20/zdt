@@ -11,10 +11,8 @@ class TrajectoryDataset(Dataset):
     def __init__(self, datapath):
         loaded = np.load(datapath)
         X, U = loaded["X"], loaded["U"]
-        XU = np.concatenate([X[:, :-1], U], axis=2)
-
-        rollouts, horizon = XU.shape[:2]
-        self.data = torch.from_numpy(XU.reshape(rollouts, horizon, -1))
+        XU = np.concatenate([X, U], axis=2)
+        self.data = torch.from_numpy(XU.reshape(XU.shape[0], -1))
 
     def __len__(self):
         return self.data.shape[0]
